@@ -106,7 +106,7 @@ class main_controller implements main_interface
 				// Set selected groups to 1
 				$sql = 'UPDATE ' . USERS_TABLE . '
 					SET user_accept_date = ' . time() . '
-					WHERE user_id = ' . $this->user->data['user_id'];
+					WHERE user_id = ' . (int) $this->user->data['user_id'];
 
 				$this->db->sql_query($sql);
 

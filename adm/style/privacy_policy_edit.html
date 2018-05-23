@@ -9,6 +9,11 @@
 	var imageTag 	= false;
 </script>
 
+{% if not S_GET_TEXT %}
+	<a href="{{ U_BACK }}" style="float: {{ S_CONTENT_FLOW_END }};">&laquo; {{ lang('BACK') }}</a>
+	<br />
+{% endif %}
+
 <a name="maincontent"></a>
 
 <div class="head-panel">
@@ -50,7 +55,9 @@
 					</select>
 				</dd>
 			</dl>
+		</fieldset>
 
+		<fieldset>
 			<p class="submit-buttons">
 				<input class="adm-button" type="submit" id="submit" name="submit_text" value="{{ lang('GO') }}" />
 				{{ S_FORM_TOKEN }}
@@ -62,7 +69,7 @@
 
 	{% if S_PREVIEW %}
 		<fieldset>
-			<legend>{{ lang('PREVIEW') }}{{ lang('COLON') }}{{ POLICY_TITLE_PREVIEW }}</legend>
+			<legend>{{ lang('PREVIEW') }}{{ lang('COLON') }} {{ POLICY_TITLE_PREVIEW }}</legend>
 			{{ POLICY_PREVIEW }}
 		</fieldset>
 	{% endif %}
@@ -76,7 +83,7 @@
 
 			{% if S_ADD_NEW %}
 				<dl>
-					<dt><label for="privacy_lang_description">{{ lang('POLICY_DESCRIPTION') }}{{ lang('COLON') }}</label><br /><span>{{ lang('POLICY_DESCRIPTION_EXPLAIN') }}</span></dt>
+					<dt><label for="privacy_lang_description">{{ lang('POLICY_DESCRIPTION') }}{{ lang('COLON') }}</label><br /><span>{{ POLICY_DESCRIPTION_EXPLAIN }}</span></dt>
 					<dd><input class="text medium" type="text" id="privacy_lang_description" name="privacy_lang_description" value="{{ POLICY_DESCRIPTION }}" maxlength="40" /></dd>
 				</dl>
 			{% endif %}

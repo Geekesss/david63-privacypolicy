@@ -99,7 +99,7 @@ class acp_edit_controller implements acp_edit_interface
 	}
 
 	/**
-	 * Display the options a user can configure for this extension
+	 * Display the editor that a user can use to configure this extension
 	 *
 	 * @return null
 	 * @access public
@@ -146,6 +146,8 @@ class acp_edit_controller implements acp_edit_interface
 		$this->privacypolicy_lang->get_languages();
 		$this->privacypolicy_lang->get_text_names();
 
+		$local_lang_name = $this->privacypolicy_lang->get_lang_name($lang_id);
+
 		// Is the form being submitted?
 		if ($this->request->is_set_post('submit_text') || $this->request->is_set_post('submit') || $this->request->is_set_post('preview'))
 		{
@@ -159,22 +161,22 @@ class acp_edit_controller implements acp_edit_interface
 			{
 				case 'cookie_policy';
 					$policy_explain 	= $this->language->lang('COOKIE_EDIT_EXPLAIN');
-					$policy_explain_new = $this->language->lang('COOKIE_EDIT_EXPLAIN_NEW');
+					$policy_explain_new = $this->language->lang('COOKIE_EDIT_EXPLAIN_NEW', $local_lang_name);
 				break;
 
 				case 'privacy_policy';
 					$policy_explain 	= $this->language->lang('PRIVACY_EDIT_EXPLAIN');
-					$policy_explain_new = $this->language->lang('PRIVACY_EDIT_EXPLAIN_NEW');
+					$policy_explain_new = $this->language->lang('PRIVACY_EDIT_EXPLAIN_NEW', $local_lang_name);
 				break;
 
 				case 'privacy_policy_accept';
 					$policy_explain 	= $this->language->lang('PRIVACY_ACCEPT_EDIT_EXPLAIN');
-					$policy_explain_new = $this->language->lang('PRIVACY_ACCEPT_EDIT_EXPLAIN_NEW');
+					$policy_explain_new = $this->language->lang('PRIVACY_ACCEPT_EDIT_EXPLAIN_NEW', $local_lang_name);
 				break;
 
 				case 'terms_of_use_2';
 					$policy_explain 	= $this->language->lang('TERM_OF_USE_EDIT_EXPLAIN');
-					$policy_explain_new = $this->language->lang('TERM_OF_USE_EDIT_EXPLAIN_NEW');
+					$policy_explain_new = $this->language->lang('TERM_OF_USE_EDIT_EXPLAIN_NEW', $local_lang_name);
 				break;
 			}
 
@@ -221,11 +223,11 @@ class acp_edit_controller implements acp_edit_interface
 					$this->db->sql_query($sql);
 
 					// Add option settings change action to the admin log
-					$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'PRIVACY_POLICY_ADD_LOG');
+					$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'PRIVACY_POLICY_ADD_LOG', time(), array($privacy_desc));
 
 					// Settings have been updated and logged
 					// Confirm this to the user and provide link back to previous page
-					trigger_error($this->language->lang('PRIVACY_EDIT_CREATED') . adm_back_link($this->u_action));
+					trigger_error($this->language->lang('PRIVACY_EDIT_CREATED', $privacy_desc) . adm_back_link($this->u_action));
 				}
 				else
 				{
@@ -238,16 +240,18 @@ class acp_edit_controller implements acp_edit_interface
 
 					$sql = 'UPDATE ' . $this->privacy_lang_table . '
 						SET ' . $this->db->sql_build_array('UPDATE', $privacy_sql) . "
-						WHERE privacy_id = $privacy_id";
+						WHERE privacy_id = (int) $privacy_id";
 
 					$this->db->sql_query($sql);
 
+					$privacy_desc = $this->privacypolicy_lang->get_description($lang_name, $lang_id);
+
 					// Add option settings change action to the admin log
-					$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'PRIVACY_POLICY_EDIT_LOG');
+					$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'PRIVACY_POLICY_EDIT_LOG', time(), array($privacy_desc));
 
 					// Settings have been updated and logged
 					// Confirm this to the user and provide link back to previous page
-					trigger_error($this->language->lang('PRIVACY_EDIT_UPDATED') . adm_back_link($this->u_action));
+					trigger_error($this->language->lang('PRIVACY_EDIT_UPDATED', $privacy_desc) . adm_back_link($this->u_action));
 				}
 			}
 
@@ -272,18 +276,20 @@ class acp_edit_controller implements acp_edit_interface
 			$get_text = false;
 
 			$this->template->assign_vars(array(
-				'POLICY_EXPLAIN' 		=> $policy_explain,
-				'POLICY_EXPLAIN_NEW'	=> $policy_explain_new,
-				'POLICY_PREVIEW' 		=> $policy_preview,
+				'POLICY_DESCRIPTION_EXPLAIN'	=> $this->language->lang('POLICY_DESCRIPTION_EXPLAIN', $local_lang_name),
+				'POLICY_EXPLAIN' 				=> $policy_explain,
+				'POLICY_EXPLAIN_NEW'			=> $policy_explain_new,
+				'POLICY_PREVIEW' 				=> $policy_preview,
+				'POLICY_TITLE_PREVIEW'			=> $privacy_desc,
 
-				'S_ADMIN_EDIT'			=> true,
-				'S_BBCODE_ALLOWED' 		=> true,
-				'S_BBCODE_FLASH' 		=> true,
-				'S_BBCODE_IMG' 			=> true,
-				'S_HIDDEN_FIELDS' 		=> build_hidden_fields($s_hidden_fields),
-				'S_LINKS_ALLOWED' 		=> true,
-				'S_PREVIEW' 			=> $preview,
-				'S_SMILIES_ALLOWED' 	=> true,
+				'S_ADMIN_EDIT'					=> true,
+				'S_BBCODE_ALLOWED' 				=> true,
+				'S_BBCODE_FLASH' 				=> true,
+				'S_BBCODE_IMG' 					=> true,
+				'S_HIDDEN_FIELDS' 				=> build_hidden_fields($s_hidden_fields),
+				'S_LINKS_ALLOWED' 				=> true,
+				'S_PREVIEW' 					=> $preview,
+				'S_SMILIES_ALLOWED' 			=> true,
 			));
 
 			// Assigning custom bbcodes

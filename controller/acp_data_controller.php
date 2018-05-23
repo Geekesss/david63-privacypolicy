@@ -335,7 +335,7 @@ class acp_data_controller implements acp_data_interface
 				// Set the accept date in the Users table for this user
 				$sql = 'UPDATE ' . USERS_TABLE . '
 					SET user_accept_date = ' . time() . '
-					WHERE user_id = ' . $user_id;
+					WHERE user_id = ' . (int) $user_id;
 
 				$this->db->sql_query($sql);
 
@@ -361,7 +361,7 @@ class acp_data_controller implements acp_data_interface
 				// Reset the accept date in the Users table for this user
 				$sql = 'UPDATE ' . USERS_TABLE . '
 					SET user_accept_date = 0
-					WHERE user_id = ' . $user_id;
+					WHERE user_id = ' . (int) $user_id;
 
 				$this->db->sql_query($sql);
 

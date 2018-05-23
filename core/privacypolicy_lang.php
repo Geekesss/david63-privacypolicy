@@ -251,4 +251,24 @@ class privacypolicy_lang
 			));
 		}
 	}
+
+	/**
+	* Get the board languages for the select
+	*
+	* @return null
+	* @access public
+	*/
+	public function get_lang_name($lang_iso)
+	{
+		$sql = 'SELECT lang_local_name
+			FROM ' . LANG_TABLE . '
+			WHERE lang_iso = ' . "'$lang_iso'";
+
+		$result	= $this->db->sql_query($sql);
+		$row 	= $this->db->sql_fetchrow($result);
+
+		$this->db->sql_freeresult($result);
+
+		return $row['lang_local_name'];
+	}
 }
