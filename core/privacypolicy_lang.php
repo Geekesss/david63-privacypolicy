@@ -138,9 +138,9 @@ class privacypolicy_lang
 		if ($validate)
 		{
 			// Is the user a Guest? If so then we need to default
-			if ($this->user->data['user_id'] == ANONYMOUS)
+		    if ($this->user->data['user_id'] == ANONYMOUS)
 			{
-				$lang_valid = false;
+				$lang_valid = true;
 			}
 			else
 			{

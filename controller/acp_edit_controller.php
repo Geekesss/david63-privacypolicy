@@ -240,7 +240,7 @@ class acp_edit_controller implements acp_edit_interface
 
 					$sql = 'UPDATE ' . $this->privacy_lang_table . '
 						SET ' . $this->db->sql_build_array('UPDATE', $privacy_sql) . "
-						WHERE privacy_id = (int) $privacy_id";
+						WHERE privacy_id = $privacy_id";
 
 					$this->db->sql_query($sql);
 
