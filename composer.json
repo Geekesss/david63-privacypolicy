@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "Adds an option for the user to accept the use of cookies under EU Cookie Directive (2012), and the privacy requirements under the GDPR Directive (2018)",
 	"version": "2.1.0-rc6",
-	"time": "2018-05-16",
+	"time": "2018-05-24",
 	"keywords": [
 		"phpbb",
 		"extension",

@@ -27,13 +27,18 @@
 			<dt>{{ lang('REG_DATE') }}{{ lang('COLON') }}</dt><dd>{{ REG_DATE }}</dd>
 			<dt>{{ lang('ACCEPT_DATE') }}{{ lang('COLON') }}</dt><dd>{{ ACCEPT_DATE }}</dd>
 			<dt>{{ lang('EMAIL') }}{{ lang('COLON') }}</dt><dd>{{ EMAIL }}</dd>
+
 			{% EVENT david63_privacypolicy_ucp_data_after %}
+
 			{% for cpf in cpf_data %}
 				<dt>{{ cpf.FIELD_NAME }}{{ lang('COLON') }}</dt><dd>{{ cpf.FIELD_DATA }}</dd>
 			{% endfor %}
+
 			{% EVENT david63_privacypolicy_ucp_cpf_after %}
+
 			<dt>{{ lang('REG_IP') }}{{ lang('COLON') }}</dt><dd>{{ REG_IP }}</dd>
 			<dt>{{ lang('USER_IPS') }}{{ lang('COLON') }}</dt><dd><div class="ip-list">{{ USER_IPS }}</div></dd>
+			
 			{% EVENT david63_privacypolicy_ucp_ip_after %}
 		</dl>
 	</div>

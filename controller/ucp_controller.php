@@ -36,7 +36,7 @@ class ucp_controller implements ucp_interface
 	/** @var \phpbb\template\template */
 	protected $template;
 
-	/* @var \david63\privacypolicy\core\privacypolicy */
+	/** @var \david63\privacypolicy\core\privacypolicy */
 	protected $privacypolicy;
 
 	/** @var string Custom form action */
@@ -66,7 +66,7 @@ class ucp_controller implements ucp_interface
 	}
 
     /**
-	* Display the options a user can configure for this extension
+	* Display the privacy data for a user
 	*
 	* @return null
 	* @access public

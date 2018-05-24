@@ -115,6 +115,7 @@ class listener implements EventSubscriberInterface
 			'core.acp_profile_create_edit_init'					=> 'add_visibility',
 			'core.acp_profile_create_edit_after'				=> 'add_template_variables',
 			'core.acp_profile_create_edit_save_before'			=> 'save_field',
+			'core.user_add_after'								=> 'update_auto_groups',
 		);
 	}
 
@@ -241,9 +242,8 @@ class listener implements EventSubscriberInterface
 	{
 		if ($this->config['privacy_policy_enable'] && !$this->user->data['is_bot'])
 		{
-			$template_vars = $event['template_vars'];
-
-			$privacy_text = $this->privacypolicy_lang->get_text('terms_of_use_2', $this->user->data['user_lang']);
+			$template_vars	= $event['template_vars'];
+			$privacy_text 	= $this->privacypolicy_lang->get_text('terms_of_use_2', $this->user->data['user_lang']);
 
 			$event->update_subarray('template_vars', 'L_TERMS_OF_USE', $this->user->lang('TERMS_OF_USE_CONTENT', $this->config['sitename'], generate_board_url()) . generate_text_for_display($privacy_text['privacy_lang_text'], $privacy_text['privacy_text_bbcode_uid'], $privacy_text['privacy_text_bbcode_bitfield'], 7));
 		}
@@ -264,14 +264,25 @@ class listener implements EventSubscriberInterface
 			$user_row['user_accept_date'] 	= $user_row['user_regdate'];
 			$event['user_row']				= $user_row;
 		}
+	}
 
-		// Update Auto Groups - if installed
+	/**
+	* Add the user into the Auto Groups - if installed
+	*
+	* @param object $event The event object
+	* @return null
+	* @access public
+	*/
+	public function update_auto_groups($event)
+	{
+		$user_id = $event['user_id'];
+
 		// This conditional must be used to ensure calls only go out if Auto Groups is installed/enabled
 		if ($this->autogroup_manager !== null)
 		{
 			// This calls our class and sends it some $options data
 			$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
-				'users' => $event['user_id_ary'],
+				'users' => $user_id,
 			));
 		}
 	}
@@ -344,6 +355,7 @@ class listener implements EventSubscriberInterface
 		{
 			$field_row['field_privacy_show'] = 0;
 		}
+
 		$exclude[1][] 		= 'field_privacy_show';
 		$visibility_ary[] 	= 'field_privacy_show';
 
