@@ -9,6 +9,8 @@
 
 namespace david63\privacypolicy\controller;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use \phpbb\exception\http_exception;
 use \phpbb\user;
 use \phpbb\request\request;
@@ -64,6 +66,8 @@ class main_controller implements main_interface
 	* @param string											$phpbb_root_path	phpBB root path
 	* @param string											$php_ext            phpBB extension
 	* @param \david63\privacypolicy\core\privacypolicy_lang privacypolicy_lang  Methods for the extension
+	*
+	* @return \david63\privacypolicy\controller\acp_managemain
 	*/
 	public function __construct(user $user, request $request, helper $helper, driver_interface $db, template $template, config $config, language $language, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang)
 	{

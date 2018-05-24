@@ -9,6 +9,8 @@
 
 namespace david63\privacypolicy\controller;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use \phpbb\config\config;
 use \phpbb\user;
 use \phpbb\request\request;

@@ -83,7 +83,7 @@ class acp_data_controller implements acp_data_interface
 	* @param \phpbb\log\log								$log				Log object
 	* @param \phpbb\autogroups\conditions\manage		autogroup_manager	Autogroup manager
 	*
-	* @return \david63\privacypolicy\controller\data_controller
+	* @return \david63\privacypolicy\controller\acp_data_controller
 	* @access public
 	*/
 	public function __construct(config $config, request $request, user $user, template $template, language $language, driver_interface $db, $root_path, $php_ext, privacypolicy $privacypolicy, pagination $pagination, log $log, manager $autogroup_manager = null)

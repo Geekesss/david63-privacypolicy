@@ -10,6 +10,7 @@
 namespace david63\privacypolicy\controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use \phpbb\config\config;
 use \phpbb\request\request;
 use \phpbb\template\template;
@@ -80,7 +81,7 @@ class acp_edit_controller implements acp_edit_interface
 	 * @param \david63\privacypolicy\core\privacypolicy_lang 	privacypolicy_lang  Methods for the extension
 	 * @param string											$privacy_lang_table	Name of the table used to store log searches data
 	 *
-	 * @return \david63\privacypolicy\controller\admin_controller
+	 * @return \david63\privacypolicy\controller\acp_edit_controller
 	 * @access public
 	 */
 	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang, $privacy_lang_table)

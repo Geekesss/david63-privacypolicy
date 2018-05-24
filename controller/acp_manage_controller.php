@@ -10,6 +10,7 @@
 namespace david63\privacypolicy\controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use \phpbb\config\config;
 use \phpbb\request\request;
 use \phpbb\template\template;
@@ -59,7 +60,7 @@ class acp_manage_controller implements acp_manage_interface
 	* @param \phpbb\log\log				$log		Log object
 	* @param phpbb_db_driver			$db			The db connection
 	*
-	* @return \david63\privacypolicy\controller\admin_controller
+	* @return \david63\privacypolicy\controller\acp_manage_controller
 	* @access public
 	*/
 	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db)

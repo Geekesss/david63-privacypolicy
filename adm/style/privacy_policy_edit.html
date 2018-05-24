@@ -19,7 +19,7 @@
 <div class="head-panel">
 	<div class="head-title">{{ lang('POLICY_EDIT') }}</div>
 	<div class="head-description">{{ lang('POLICY_EDIT_EXPLAIN') }}</div>
-		<div class="version-wrapper" style="float: {{ S_CONTENT_FLOW_END }};">
+	<div class="version-wrapper" style="float: {{ S_CONTENT_FLOW_END }};">
 		<div class="version-text">{{ lang('VERSION') }}</div>
 		<div class="version-data">{{ PRIVACY_POLICY_VERSION }}</div>
 	</div>
@@ -67,12 +67,12 @@
 {% else %}
 	<form id="privacypolicy" method="post" action="{{ U_ACTION }}">
 
-	{% if S_PREVIEW %}
-		<fieldset>
-			<legend>{{ lang('PREVIEW') }}{{ lang('COLON') }} {{ POLICY_TITLE_PREVIEW }}</legend>
-			{{ POLICY_PREVIEW }}
-		</fieldset>
-	{% endif %}
+		{% if S_PREVIEW %}
+			<fieldset>
+				<legend>{{ lang('PREVIEW') }}{{ lang('COLON') }} {{ POLICY_TITLE_PREVIEW }}</legend>
+				{{ POLICY_PREVIEW }}
+			</fieldset>
+		{% endif %}
 
 		<fieldset>
 			{% if S_ADD_NEW %}

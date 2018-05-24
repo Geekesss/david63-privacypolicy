@@ -54,7 +54,7 @@ class ext extends base
 	}
 
 	/**
-	* This method is required
+	* This method is required for Auto Groups
 	*/
 	public function purge_step($old_state)
 	{

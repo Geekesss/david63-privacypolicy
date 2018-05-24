@@ -49,13 +49,13 @@
 		<div class="table-body">
 			{% for list in privacy_list %}
 				{% if list.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
-				<div class="table-body-cell">{{ list.USER_ID }}</div>
-				<div class="table-body-cell">{{ list.USERNAME }}</div>
-				<div class="table-body-cell">{{ list.ACCEPT_DATE }}</div>
-				<div class="table-body-cell">{{ list.REG_DATE }}</div>
-				<div class="table-body-cell">{{ list.LAST_VISIT }}</div>
-				<div class="table-body-cell">{{ list.POSTS }}</div>
-			</div>
+					<div class="table-body-cell">{{ list.USER_ID }}</div>
+					<div class="table-body-cell">{{ list.USERNAME }}</div>
+					<div class="table-body-cell">{{ list.ACCEPT_DATE }}</div>
+					<div class="table-body-cell">{{ list.REG_DATE }}</div>
+					<div class="table-body-cell">{{ list.LAST_VISIT }}</div>
+					<div class="table-body-cell">{{ list.POSTS }}</div>
+				</div>
 			{% endfor %}
 		</div>
 	</div>
