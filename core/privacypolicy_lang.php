@@ -152,6 +152,7 @@ class privacypolicy_lang
 			{
 				// Does board default language/text file combination exist?
 				$lang_valid = $this->validate_lang($lang_name, $this->config['default_lang']);
+				
 				if ($lang_valid)
 				{
 					$lang_id = $this->config['default_lang'];

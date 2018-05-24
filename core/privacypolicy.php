@@ -91,10 +91,6 @@ class privacypolicy
 	*/
 	public function display_privacy_data($user_id)
 	{
-		// Create a form key for preventing CSRF attacks
-		$form_key = 'privacy_policy_data';
-		add_form_key($form_key);
-
 		$row = $this->get_user_data_row ($user_id);
 
 		// Set output vars for display in the template

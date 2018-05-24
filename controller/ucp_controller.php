@@ -78,7 +78,7 @@ class ucp_controller implements ucp_interface
 		$this->language->add_lang('common_privacypolicy', 'david63/privacypolicy');
 
 		// Create a form key for preventing CSRF attacks
-		$form_key = 'privacypolicy_manage';
+		$form_key = 'privacy_policy_data';
 		add_form_key($form_key);
 
 		$error = '';
@@ -90,7 +90,7 @@ class ucp_controller implements ucp_interface
 			{
 				$error = $this->user->lang('FORM_INVALID');
 			}
-			else
+		   	else
 			{
 				$this->privacypolicy->create_csv($this->user->data['username'], $this->user->data['user_id']);
 			}

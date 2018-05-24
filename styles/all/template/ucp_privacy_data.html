@@ -38,13 +38,13 @@
 		</dl>
 	</div>
 
-	<form id="ucp_privacy" method="post" action="{{ S_UCP_ACTION }}"{{ S_FORM_ENCTYPE }}>
+	<form id="privacy_policy_data" method="post" action="{{ S_UCP_ACTION }}"{{ S_FORM_ENCTYPE }}>
 		<fieldset class="submit-buttons">
 			<input type="submit" name="submit" class="download-btn" value="{{ lang('CSV_DOWNLOAD') }}" />
-			{{ S_FORM_TOKEN }}
 			{% if U_REMOVE_ME %}
 				<a href="{{ U_EMAIL }}">{{ lang('REMOVE_ACCOUNT') }}</a>
 			{% endif %}
+			{{ S_FORM_TOKEN }}
 		</fieldset>
 	</form>
 </div>
