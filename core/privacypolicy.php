@@ -296,19 +296,26 @@ class privacypolicy
 	 */
 	public function get_user_ips($user_id)
 	{
-		$sql = 'SELECT poster_ip
-			FROM ' . POSTS_TABLE . '
-			WHERE poster_id = ' . $user_id . "
-			GROUP BY poster_ip";
-
-		$result = $this->db->sql_query($sql);
-
-		$user_ips = '';
-		while ($row = $this->db->sql_fetchrow($result))
+		if ($this->config['privacy_policy_anonymise'])
 		{
-			if($row['poster_ip'])
+			return $this->language->lang('IP_ANONYMISED');
+		}
+		else
+		{
+			$sql = 'SELECT poster_ip
+				FROM ' . POSTS_TABLE . '
+				WHERE poster_id = ' . $user_id . "
+				GROUP BY poster_ip";
+
+			$result = $this->db->sql_query($sql);
+
+			$user_ips = '';
+			while ($row = $this->db->sql_fetchrow($result))
 			{
-				$user_ips .= $row['poster_ip'] . '<br>';
+				if($row['poster_ip'])
+				{
+					$user_ips .= $row['poster_ip'] . '<br>';
+				}
 			}
 		}
 

@@ -65,7 +65,7 @@ Text
 --------- */
 .textbox, .textbox2 {
     padding: 0.1em 0.625em;
-    border: 0;
+    border: 1px solid #BFBFBF;
     height: 2em;
     width: auto;
     border-radius: 0.5em;

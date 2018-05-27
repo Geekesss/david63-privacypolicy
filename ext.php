@@ -41,7 +41,7 @@ class ext extends base
 		$cookie_error 	= ($cookie_policy) ? false : true;
 
 		// Need to cater for 3.1 and 3.2
-		if (phpbb_version_compare(PHPBB_VERSION, '3.2.0', '>='))
+		if (phpbb_version_compare(PHPBB_VERSION, '3.2.2', '>='))
 		{
 			$this->container->get('language')->add_lang('ext_enable_error', 'david63/privacypolicy');
 		}

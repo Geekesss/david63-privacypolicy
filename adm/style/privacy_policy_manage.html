@@ -102,6 +102,23 @@
 		</dl>
 
 		<dl>
+			<dt><label for="privacy_policy_anonymise">{{ lang('PRIVACY_POLICY_ANONYMISE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('PRIVACY_POLICY_ANONYMISE_EXPLAIN') }}</span></dt>
+			<dd>
+				<input type="radio" id="privacy_policy_anonymise1" name="privacy_policy_anonymise" value="1"{% if PRIVACY_POLICY_ANONYMISE %} checked="checked"{% endif %} />
+				<label class="set" for="privacy_policy_anonymise1">{{ lang('YES') }}</label>
+				<input type="radio" id="privacy_policy_anonymise0" name="privacy_policy_anonymise" value="0"{% if not PRIVACY_POLICY_ANONYMISE %} checked="checked"{% endif %} />
+				<label class="unset" for="privacy_policy_anonymise0">{{ lang('NO') }}</label>
+			</dd>
+		</dl>
+
+		<dl>
+			<dt><label for="privacy_policy_anonymise_ip">{{ lang('PRIVACY_POLICY_ANONYMISE_IP') }}{{ lang('COLON') }}</label><br /><span>{{ lang('PRIVACY_POLICY_ANONYMISE_IP_EXPLAIN') }}</span></dt>
+			<dd>
+				<input class="textbox" name="privacy_policy_anonymise_ip" type="text" id="privacy_policy_anonymise_ip" value="{{ PRIVACY_POLICY_ANONYMISE_IP }}" size="40" maxlength="40" />
+			</dd>
+		</dl>
+
+		<dl>
 			<dt><label for="privacy_policy_list_lines">{{ lang('PRIVACY_POLICY_LIST_LINES') }}{{ lang('COLON') }}</label><br /><span>{{ lang('PRIVACY_POLICY_LIST_LINES_EXPLAIN') }}</span></dt>
 			<dd>
 				<input class="textbox" name="privacy_policy_list_lines" type="number" id="privacy_policy_list_lines" value="{{ PRIVACY_POLICY_LIST_LINES }}" min="0" max="99" />

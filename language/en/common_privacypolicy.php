@@ -40,6 +40,7 @@ $lang = array_merge($lang, array(
 	'ACCEPT_DATE'		=> 'Policy acceptance date',
 
 	'BIRTHDAY'			=> 'Birthday',
+	'IP_ANONYMISED'		=> 'IP addresses have been anonymised',
 
 	'NO_BIRTHDAY'		=> 'No birthdate entered',
 	'NO_DATA_ENTERED'	=> 'No data has been entered',

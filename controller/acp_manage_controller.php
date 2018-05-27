@@ -144,6 +144,8 @@ class acp_manage_controller implements acp_manage_interface
 			'PRIVACY_POLICY_VERSION'		=> ext::PRIVACY_POLICY_VERSION,
 			'COOKIE_REQUIRE'				=> isset($this->config['cookie_require_access']) ? $this->config['cookie_require_access'] : '',
 			'COOKIE_SHOW_POLICY'			=> isset($this->config['cookie_show_policy']) ? $this->config['cookie_show_policy'] : '',
+			'PRIVACY_POLICY_ANONYMISE'		=> isset($this->config['privacy_policy_anonymise']) ? $this->config['privacy_policy_anonymise'] : '',
+			'PRIVACY_POLICY_ANONYMISE_IP'	=> isset($this->config['privacy_policy_anonymise_ip']) ? $this->config['privacy_policy_anonymise_ip'] : '',
 			'PRIVACY_POLICY_ENABLED'		=> isset($this->config['privacy_policy_enable']) ? $this->config['privacy_policy_enable'] : '',
 			'PRIVACY_POLICY_FORCE'			=> isset($this->config['privacy_policy_force']) ? $this->config['privacy_policy_force'] : '',
 			'PRIVACY_POLICY_LIST_LINES'		=> isset($this->config['privacy_policy_list_lines']) ? $this->config['privacy_policy_list_lines'] : '',
@@ -178,6 +180,8 @@ class acp_manage_controller implements acp_manage_interface
 		$this->config->set('cookie_policy_enable', $this->request->variable('cookie_policy_enable', 0));
 		$this->config->set('cookie_require_access', $this->request->variable('cookie_require_access', 0));
 		$this->config->set('cookie_show_policy', $this->request->variable('cookie_show_policy', 0));
+		$this->config->set('privacy_policy_anonymise', $this->request->variable('privacy_policy_anonymise', 0));
+		$this->config->set('privacy_policy_anonymise_ip', $this->request->variable('privacy_policy_anonymise_ip', ''));
 		$this->config->set('privacy_policy_enable', $this->request->variable('privacy_policy_enable', 0));
 		$this->config->set('privacy_policy_force', $this->request->variable('privacy_policy_force', 0));
 		$this->config->set('privacy_policy_list_lines', $this->request->variable('privacy_policy_list_lines', 25));

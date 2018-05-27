@@ -116,7 +116,46 @@ class listener implements EventSubscriberInterface
 			'core.acp_profile_create_edit_after'				=> 'add_template_variables',
 			'core.acp_profile_create_edit_save_before'			=> 'save_field',
 			'core.user_add_after'								=> 'update_auto_groups',
+			'core.modify_submit_post_data'						=> 'anonymise_posting_ip',
+			'core.viewtopic_modify_poll_data'					=> 'anonymise_posting_ip',
+			'core.submit_pm_before'								=> 'anonymise_pm_ip',
 		);
+	}
+
+	/**
+	* Anonymise IP address on PMs
+	*
+	* @param $event
+	*
+	* @return null
+	* @access public
+	*/
+	public function anonymise_pm_ip($event)
+	{
+		if ($this->config['privacy_policy_anonymise'])
+		{
+			$data 					= $event['data'];
+	   		$from_user_ip 			= $data['from_user_ip'];
+			$from_user_ip 			= $this->config['privacy_policy_anonymise_ip'];
+			$data['from_user_ip'] 	= $from_user_ip;
+			$event['data'] 			= $data;
+		}
+	}
+
+	/**
+	* Anonymise IP address on posts & polls
+	*
+	* @param $event
+	*
+	* @return null
+	* @access public
+	*/
+	public function anonymise_posting_ip($event)
+	{
+		if ($this->config['privacy_policy_anonymise'])
+		{
+			$this->user->ip = $this->config['privacy_policy_anonymise_ip'];
+		}
 	}
 
 	/**
@@ -124,8 +163,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param $event
 	*
-	* @return array
-	* @static
+	* @return null
 	* @access public
 	*/
 	public function page_footer($event)

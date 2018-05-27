@@ -89,6 +89,10 @@ $lang = array_merge($lang, array(
 
 	'PIXELS'								=> 'px',
 	'POLICIES'								=> 'Policies',
+	'PRIVACY_POLICY_ANONYMISE'				=> 'Anonymise IP addresses',
+	'PRIVACY_POLICY_ANONYMISE_EXPLAIN'		=> 'Anonymise the user’s IP&nbsp;address on posts, polls & PMs.<br /><em>The user’s real IP address will still be used in areas of the board where it is required for the correct management of the board.</em>',
+	'PRIVACY_POLICY_ANONYMISE_IP'			=> 'Anonymise IP address',
+	'PRIVACY_POLICY_ANONYMISE_IP_EXPLAIN'	=> 'The IP&nbsp;address to be used for the anonymisation.<br /><strong>This must be a valid IP address</strong>',
 	'PRIVACY_POLICY_ENABLE'					=> 'Enable the Privacy policy',
 	'PRIVACY_POLICY_ENABLE_EXPLAIN'			=> 'Enable/disable all user’s requirement to accept the GDPR (2018) on this board.',
 	'PRIVACY_POLICY_FORCE'					=> 'Force Privacy acceptance',
