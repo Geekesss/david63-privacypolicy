@@ -72,7 +72,7 @@ services:
             - '@david63.privacypolicy.core.privacypolicy'
             - '@pagination'
             - '@log'
-            - '@?phpbb.autogroups.manager'			
+            - '@?phpbb.autogroups.manager'
 
     david63.privacypolicy.ucp.controller:
         class: david63\privacypolicy\controller\ucp_controller
@@ -113,7 +113,7 @@ services:
         arguments:
             - '@service_container'
             - '@dbal.conn'
-            - '@user'
+            - '@language'
             - '%core.table_prefix%autogroups_rules'
             - '%core.table_prefix%autogroups_types'
             - '%core.root_path%'
