@@ -123,42 +123,6 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Anonymise IP address on PMs
-	*
-	* @param $event
-	*
-	* @return null
-	* @access public
-	*/
-	public function anonymise_pm_ip($event)
-	{
-		if ($this->config['privacy_policy_anonymise'])
-		{
-			$data 					= $event['data'];
-	   		$from_user_ip 			= $data['from_user_ip'];
-			$from_user_ip 			= $this->config['privacy_policy_anonymise_ip'];
-			$data['from_user_ip'] 	= $from_user_ip;
-			$event['data'] 			= $data;
-		}
-	}
-
-	/**
-	* Anonymise IP address on posts & polls
-	*
-	* @param $event
-	*
-	* @return null
-	* @access public
-	*/
-	public function anonymise_posting_ip($event)
-	{
-		if ($this->config['privacy_policy_anonymise'])
-		{
-			$this->user->ip = $this->config['privacy_policy_anonymise_ip'];
-		}
-	}
-
-	/**
 	* Set the template variables
 	*
 	* @param $event
@@ -432,5 +396,41 @@ class listener implements EventSubscriberInterface
 		$profile_fields['field_privacy_show'] = $field_data['field_privacy_show'];
 
 		$event['profile_fields'] = $profile_fields;
+	}
+
+	/**
+	* Anonymise IP address on posts & polls
+	*
+	* @param $event
+	*
+	* @return null
+	* @access public
+	*/
+	public function anonymise_posting_ip($event)
+	{
+		if ($this->config['privacy_policy_anonymise'])
+		{
+			$this->user->ip = $this->config['privacy_policy_anonymise_ip'];
+		}
+	}
+
+	/**
+	* Anonymise IP address on PMs
+	*
+	* @param $event
+	*
+	* @return null
+	* @access public
+	*/
+	public function anonymise_pm_ip($event)
+	{
+		if ($this->config['privacy_policy_anonymise'])
+		{
+			$data 					= $event['data'];
+	   		$from_user_ip 			= $data['from_user_ip'];
+			$from_user_ip 			= $this->config['privacy_policy_anonymise_ip'];
+			$data['from_user_ip'] 	= $from_user_ip;
+			$event['data'] 			= $data;
+		}
 	}
 }
