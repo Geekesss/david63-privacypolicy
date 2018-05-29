@@ -20,7 +20,6 @@ use \phpbb\db\driver\driver_interface;
 use \david63\privacypolicy\core\privacypolicy;
 use \phpbb\pagination;
 use \phpbb\log\log;
-use \phpbb\autogroups\conditions\manager;
 use \david63\privacypolicy\ext;
 
 /**
@@ -61,9 +60,6 @@ class acp_data_controller implements acp_data_interface
 	/** @var \phpbb\log\log */
 	protected $log;
 
-	/** @var \phpbb\autogroups\conditions\manage */
-	protected $autogroup_manager;
-
 	/** @var string Custom form action */
 	protected $u_action;
 
@@ -81,25 +77,23 @@ class acp_data_controller implements acp_data_interface
 	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy		Methods for the extension
 	* @param \phpbb\pagination							$pagination			Pagination object
 	* @param \phpbb\log\log								$log				Log object
-	* @param \phpbb\autogroups\conditions\manage		autogroup_manager	Autogroup manager
 	*
 	* @return \david63\privacypolicy\controller\acp_data_controller
 	* @access public
 	*/
-	public function __construct(config $config, request $request, user $user, template $template, language $language, driver_interface $db, $root_path, $php_ext, privacypolicy $privacypolicy, pagination $pagination, log $log, manager $autogroup_manager = null)
+	public function __construct(config $config, request $request, user $user, template $template, language $language, driver_interface $db, $root_path, $php_ext, privacypolicy $privacypolicy, pagination $pagination, log $log)
 	{
-		$this->config				= $config;
-		$this->request				= $request;
-		$this->user					= $user;
-		$this->template				= $template;
-		$this->language				= $language;
-		$this->db					= $db;
-		$this->root_path			= $root_path;
-		$this->php_ext				= $php_ext;
-		$this->privacypolicy		= $privacypolicy;
-		$this->pagination			= $pagination;
-		$this->log					= $log;
-		$this->autogroup_manager	= $autogroup_manager;
+		$this->config			= $config;
+		$this->request			= $request;
+		$this->user				= $user;
+		$this->template			= $template;
+		$this->language			= $language;
+		$this->db				= $db;
+		$this->root_path		= $root_path;
+		$this->php_ext			= $php_ext;
+		$this->privacypolicy	= $privacypolicy;
+		$this->pagination		= $pagination;
+		$this->log				= $log;
 	}
 
 	/**
@@ -339,15 +333,8 @@ class acp_data_controller implements acp_data_interface
 
 				$this->db->sql_query($sql);
 
-				// Update Auto Groups - if installed
-				// This conditional must be used to ensure calls only go out if Auto Groups is installed/enabled
-				if ($this->autogroup_manager !== null)
-				{
-					// This calls our class and sends it some $options data
-					$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
-						'users' => $user_id,
-					));
-				}
+				// Update Auto Groups
+				$this->privacypolicy->update_auto_groups($user_id);
 
 				// Add action to the admin log
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'POLICY_USER_ACCEPT_LOG', time(), array($username));
@@ -365,15 +352,8 @@ class acp_data_controller implements acp_data_interface
 
 				$this->db->sql_query($sql);
 
-				// Update Auto Groups - if installed
-				// This conditional must be used to ensure calls only go out if Auto Groups is installed/enabled
-				if ($this->autogroup_manager !== null)
-				{
-					// This calls our class and sends it some $options data
-					$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
-						'users' => $user_id,
-					));
-				}
+				// Update Auto Groups
+				$this->privacypolicy->update_auto_groups($user_id);
 
 				// Add action to the admin log
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'POLICY_USER_UNSET_LOG', time(), array($username));

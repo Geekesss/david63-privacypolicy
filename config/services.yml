@@ -14,7 +14,6 @@ services:
             - '@request'
             - '@language'
             - '@david63.privacypolicy.core.privacypolicy_lang'
-            - '@?phpbb.autogroups.manager'
         tags:
             - { name: event.listener }
 
@@ -72,7 +71,6 @@ services:
             - '@david63.privacypolicy.core.privacypolicy'
             - '@pagination'
             - '@log'
-            - '@?phpbb.autogroups.manager'
 
     david63.privacypolicy.ucp.controller:
         class: david63\privacypolicy\controller\ucp_controller
@@ -95,7 +93,8 @@ services:
             - '@dispatcher'
             - '@profilefields.type_collection'
             - '%core.root_path%'
-            - '%core.php_ext%'			
+            - '%core.php_ext%'
+            - '@?phpbb.autogroups.manager'
 
     david63.privacypolicy.core.privacypolicy_lang:
         class: david63\privacypolicy\core\privacypolicy_lang

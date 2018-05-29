@@ -277,16 +277,8 @@ class listener implements EventSubscriberInterface
 	*/
 	public function update_auto_groups($event)
 	{
-		$user_id = $event['user_id'];
-
-		// This conditional must be used to ensure calls only go out if Auto Groups is installed/enabled
-		if ($this->autogroup_manager !== null)
-		{
-			// This calls our class and sends it some $options data
-			$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
-				'users' => $user_id,
-			));
-		}
+		// Update Auto Groups
+		$this->privacypolicy->update_auto_groups($event['user_id']);
 	}
 
 	/**

@@ -18,6 +18,7 @@ use \phpbb\language\language;
 use \phpbb\db\driver\driver_interface;
 use \phpbb\event\dispatcher_interface;
 use \phpbb\di\service_collection;
+use \phpbb\autogroups\conditions\manager;
 use \david63\privacypolicy\ext;
 
 /**
@@ -52,35 +53,40 @@ class privacypolicy
 	/** @var string PHP extension */
 	protected $phpEx;
 
+	/** @var \phpbb\autogroups\conditions\manage */
+	protected $autogroup_manager;
+
 	/** @var string Custom form action */
 	protected $u_action;
 
     /**
 	* Constructor for privacypolicy
 	*
-	* @param \phpbb\config\config			$config				Config object
-	* @param \phpbb\template\template		$template			Template object
-	* @param \phpbb\user					$user				User object
-	* @param \phpbb\language\language		$language			Language object
-	* @param \phpbb_db_driver				$db					The db connection
-	* @param dispatcher_interface			$dispatcher			phpBB dispatcher
-	* @param \phpbb\di\service_collection 	$type_collection	CPF data
-	* @param string							$phpbb_root_path    phpBB root path
-	* @param string							$php_ext            phpBB extension
+	* @param \phpbb\config\config					$config				Config object
+	* @param \phpbb\template\template				$template			Template object
+	* @param \phpbb\user							$user				User object
+	* @param \phpbb\language\language				$language			Language object
+	* @param \phpbb_db_driver						$db					The db connection
+	* @param dispatcher_interface					$dispatcher			phpBB dispatcher
+	* @param \phpbb\di\service_collection 			$type_collection	CPF data
+	* @param string									$phpbb_root_path    phpBB root path
+	* @param string									$php_ext            phpBB extension
+	* @param \phpbb\autogroups\conditions\manage	autogroup_manager	Autogroup manager
 	*
 	* @access public
 	*/
-	public function __construct(config $config, template $template, user $user, language $language, driver_interface $db, dispatcher_interface $dispatcher, service_collection $type_collection, $root_path, $php_ext)
+	public function __construct(config $config, template $template, user $user, language $language, driver_interface $db, dispatcher_interface $dispatcher, service_collection $type_collection, $root_path, $php_ext, manager $autogroup_manager = null)
 	{
-		$this->config			= $config;
-		$this->template			= $template;
-		$this->user				= $user;
-		$this->language			= $language;
-		$this->db				= $db;
-		$this->dispatcher		= $dispatcher;
-		$this->type_collection 	= $type_collection;
-		$this->root_path		= $root_path;
-		$this->php_ext			= $php_ext;
+		$this->config				= $config;
+		$this->template				= $template;
+		$this->user					= $user;
+		$this->language				= $language;
+		$this->db					= $db;
+		$this->dispatcher			= $dispatcher;
+		$this->type_collection 		= $type_collection;
+		$this->root_path			= $root_path;
+		$this->php_ext				= $php_ext;
+		$this->autogroup_manager	= $autogroup_manager;
 	}
 
     /**
@@ -458,7 +464,28 @@ class privacypolicy
 		$this->db->sql_freeresult($result);
 
 		$profile_field = $this->type_collection[$profile_data['field_type']];
+
 		return $profile_field->get_profile_value($field_value, $profile_data);
+	}
+
+	/**
+	 * Update Auto Groups (if installed)
+	 *
+	 * @param $user_id
+	 *
+	 * @return null
+	 * @access public
+	 */
+	public function update_auto_groups($user_id)
+	{
+		// This conditional must be used to ensure calls only go out if Auto Groups is installed/enabled
+		if ($this->autogroup_manager !== null)
+		{
+			// This calls our class and sends it some $options data
+			$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
+				'users' => $user_id,
+			));
+		}
 	}
 
 	/**

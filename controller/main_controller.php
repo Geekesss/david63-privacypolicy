@@ -20,6 +20,7 @@ use \phpbb\template\template;
 use \phpbb\config\config;
 use \phpbb\language\language;
 use \david63\privacypolicy\core\privacypolicy_lang;
+use \david63\privacypolicy\core\privacypolicy;
 
 class main_controller implements main_interface
 {
@@ -53,6 +54,9 @@ class main_controller implements main_interface
 	/** @var \david63\privacypolicy\core\privacypolicy_lang */
 	protected $privacypolicy_lang;
 
+	/** @var \david63\privacypolicy\core\privacypolicy */
+	protected $privacypolicy;
+
 	/**
 	* Constructor
 	*
@@ -66,10 +70,11 @@ class main_controller implements main_interface
 	* @param string											$phpbb_root_path	phpBB root path
 	* @param string											$php_ext            phpBB extension
 	* @param \david63\privacypolicy\core\privacypolicy_lang privacypolicy_lang  Methods for the extension
+	* @param \david63\privacypolicy\core\privacypolicy		privacypolicy		Methods for the extension
 	*
 	* @return \david63\privacypolicy\controller\acp_managemain
 	*/
-	public function __construct(user $user, request $request, helper $helper, driver_interface $db, template $template, config $config, language $language, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang)
+	public function __construct(user $user, request $request, helper $helper, driver_interface $db, template $template, config $config, language $language, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy)
 	{
 		$this->user					= $user;
 		$this->request				= $request;
@@ -81,6 +86,7 @@ class main_controller implements main_interface
 		$this->root_path			= $root_path;
 		$this->php_ext				= $php_ext;
 		$this->privacypolicy_lang 	= $privacypolicy_lang;
+		$this->privacypolicy		= $privacypolicy;
 	}
 
 	/**
@@ -113,6 +119,9 @@ class main_controller implements main_interface
 					WHERE user_id = ' . (int) $this->user->data['user_id'];
 
 				$this->db->sql_query($sql);
+
+				// Update Auto Groups
+				$this->privacypolicy->update_auto_groups($this->user->data['user_id']);
 
 				redirect(append_sid("{$this->root_path}index.$this->php_ext"));
 			}
