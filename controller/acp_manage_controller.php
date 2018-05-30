@@ -18,6 +18,7 @@ use \phpbb\user;
 use \phpbb\language\language;
 use \phpbb\log\log;
 use \phpbb\db\driver\driver_interface;
+use \david63\privacypolicy\core\privacypolicy;
 use \david63\privacypolicy\ext;
 
 /**
@@ -46,32 +47,37 @@ class acp_manage_controller implements acp_manage_interface
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
+	/** @var \david63\privacypolicy\core\privacypolicy */
+	protected $privacypolicy;
+
 	/** @var string Custom form action */
 	protected $u_action;
 
     /**
 	* Constructor for admin controller
 	*
-	* @param \phpbb\config\config		$config		Config object
-	* @param \phpbb\request\request		$request	Request object
-	* @param \phpbb\template\template	$template	Template object
-	* @param \phpbb\user				$user		User object
-	* @param \phpbb\language\language	$language	Language object
-	* @param \phpbb\log\log				$log		Log object
-	* @param phpbb_db_driver			$db			The db connection
+	* @param \phpbb\config\config						$config			Config object
+	* @param \phpbb\request\request						$request		Request object
+	* @param \phpbb\template\template					$template		Template object
+	* @param \phpbb\user								$user			User object
+	* @param \phpbb\language\language					$language		Language object
+	* @param \phpbb\log\log								$log			Log object
+	* @param phpbb_db_driver							$db				The db connection
+	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy	Methods for the extension
 	*
 	* @return \david63\privacypolicy\controller\acp_manage_controller
 	* @access public
 	*/
-	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db)
+	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, privacypolicy $privacypolicy)
 	{
-		$this->config	= $config;
-		$this->request	= $request;
-		$this->template	= $template;
-		$this->user		= $user;
-		$this->language	= $language;
-		$this->log		= $log;
-		$this->db		= $db;
+		$this->config			= $config;
+		$this->request			= $request;
+		$this->template			= $template;
+		$this->user				= $user;
+		$this->language			= $language;
+		$this->log				= $log;
+		$this->db				= $db;
+		$this->privacypolicy	= $privacypolicy;
 	}
 
     /**
@@ -112,6 +118,9 @@ class acp_manage_controller implements acp_manage_interface
 					SET user_accept_date = 0';
 
 				$this->db->sql_query($sql);
+
+				// Update Auto Groups
+				$this->privacypolicy->update_auto_groups($this->user->data['user_id'], true);
 
 				// Add action to the admin log
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'POLICY_RESET_LOG');

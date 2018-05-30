@@ -476,17 +476,28 @@ class privacypolicy
 	 * @return null
 	 * @access public
 	 */
-	public function update_auto_groups($user_id)
+	public function update_auto_groups($user_id, $sync = false)
 	{
 		// This conditional must be used to ensure calls only go out if Auto Groups is installed/enabled
 		if ($this->autogroup_manager !== null)
 		{
-			// This calls our class and sends it some $options data
-			$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
-				'users' => $user_id,
-			));
+			if (!$sync)
+			{
+				// This calls our class and sends it some $options data
+				$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
+					'users' => $user_id,
+				));
+			}
+			else
+			{
+				$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
+					'action'	=> 'sync',
+				));
+			}
 		}
 	}
+
+
 
 	/**
 	* Set page url
