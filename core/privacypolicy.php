@@ -497,8 +497,6 @@ class privacypolicy
 		}
 	}
 
-
-
 	/**
 	* Set page url
 	*

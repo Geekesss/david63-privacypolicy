@@ -301,8 +301,8 @@ class acp_data_controller implements acp_data_interface
 						WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($privacy_username)) . "'";
 
 				$result = $this->db->sql_query($sql);
-
-				$row = $this->db->sql_fetchrow($result);
+				$row 	= $this->db->sql_fetchrow($result);
+				
 				$this->db->sql_freeresult($result);
 
 				// Is the username valid?
