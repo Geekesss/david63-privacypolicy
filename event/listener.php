@@ -216,7 +216,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Load common cookie policy language files during user setup
+	* Load common privacy policy language files during user setup
 	*
 	* @param object $event The event object
 	* @return null

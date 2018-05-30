@@ -160,7 +160,7 @@ class acp_data_controller implements acp_data_interface
 		{
 			$this->template->assign_block_vars('privacy_list', array(
 				'ACCEPT_DATE'	=> ($row['user_accept_date'] != 0) ? $this->user->format_date($row['user_accept_date']) : $this->language->lang('NOT_ACCEPTED'),
-				'LAST_VISIT'	=> $this->user->format_date($row['user_lastvisit']),
+				'LAST_VISIT'	=> ($row['user_lastvisit'] != 0) ? $this->user->format_date($row['user_lastvisit']) : $this->language->lang('NO_VISIT'),
 				'REG_DATE'		=> $this->user->format_date($row['user_regdate']),
 				'USERNAME'		=> get_username_string('full', $row['user_id'], $row['username'], $row['user_colour']),
 				'USER_ID'		=> $this->language->lang('HASH') . $row['user_id'],
