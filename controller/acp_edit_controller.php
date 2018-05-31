@@ -76,7 +76,7 @@ class acp_edit_controller implements acp_edit_interface
 	 * @param \phpbb\language\language                       	$language           Language object
 	 * @param \phpbb\log\log                                 	$log                Log object
 	 * @param phpbb_db_driver                                	$db                 The db connection
-	 * @param string										 	$phpbb_root_path	 phpBB root path
+	 * @param string										 	$phpbb_root_path	phpBB root path
 	 * @param string										 	$php_ext            phpBB extension
 	 * @param \david63\privacypolicy\core\privacypolicy_lang 	privacypolicy_lang  Methods for the extension
 	 * @param string											$privacy_lang_table	Name of the table used to store log searches data
