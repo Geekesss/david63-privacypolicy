@@ -298,15 +298,19 @@ class acp_edit_controller implements acp_edit_interface
 		}
 
 		$this->template->assign_vars(array(
-			'POLICY_DESCRIPTION'		=> $privacy_desc,
-			'POLICY_TEXT' 				=> $editable_text,
-			'PRIVACY_POLICY_VERSION'	=> ext::PRIVACY_POLICY_VERSION,
+			'HEAD_TITLE'			=> $this->language->lang('POLICY_EDIT'),
+			'HEAD_DESCRIPTION'		=> $this->language->lang('POLICY_EDIT_EXPLAIN'),
 
-			'S_ADD_NEW'					=> $add_new,
-			'S_GET_TEXT' 				=> $get_text,
-			'S_SHOW_BUTTONS'			=> true,
+			'POLICY_DESCRIPTION'	=> $privacy_desc,
+			'POLICY_TEXT' 			=> $editable_text,
 
-			'U_ACTION' 					=> $this->u_action,
+			'S_ADD_NEW'				=> $add_new,
+			'S_GET_TEXT' 			=> $get_text,
+			'S_SHOW_BUTTONS'		=> true,
+
+			'U_ACTION' 				=> $this->u_action,
+
+			'VERSION_NUMBER'		=> ext::PRIVACY_POLICY_VERSION,
 		));
 	}
 

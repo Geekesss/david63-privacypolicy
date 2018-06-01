@@ -16,15 +16,7 @@
 
 <a name="maincontent"></a>
 
-<div class="head-panel">
-	<div class="head-title">{{ lang('POLICY_EDIT') }}</div>
-	<div class="head-description">{{ lang('POLICY_EDIT_EXPLAIN') }}</div>
-	<div class="version-wrapper" style="float: {{ S_CONTENT_FLOW_END }};">
-		<div class="version-text">{{ lang('VERSION') }}</div>
-		<div class="version-data">{{ PRIVACY_POLICY_VERSION }}</div>
-	</div>
-	<br />
-</div>
+{% include 'head_panel.html' %}
 
 {% if S_GET_TEXT %}
 	<form id="privacypolicy_edit" method="post" action="{{ U_ACTION }}">

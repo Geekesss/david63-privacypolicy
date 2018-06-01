@@ -150,9 +150,12 @@ class acp_manage_controller implements acp_manage_interface
 			'COOKIE_POLICY_ENABLED'			=> isset($this->config['cookie_policy_enable']) ? $this->config['cookie_policy_enable'] : '',
 			'COOKIE_POLICY_EXPIRE'			=> isset($this->config['cookie_expire']) ? $this->config['cookie_expire'] : '',
 			'COOKIE_POLICY_ON_INDEX'		=> isset($this->config['cookie_on_index']) ? $this->config['cookie_on_index'] : '',
-			'PRIVACY_POLICY_VERSION'		=> ext::PRIVACY_POLICY_VERSION,
 			'COOKIE_REQUIRE'				=> isset($this->config['cookie_require_access']) ? $this->config['cookie_require_access'] : '',
 			'COOKIE_SHOW_POLICY'			=> isset($this->config['cookie_show_policy']) ? $this->config['cookie_show_policy'] : '',
+
+			'HEAD_TITLE'					=> $this->language->lang('COOKIE_POLICY'),
+			'HEAD_DESCRIPTION'				=> $this->language->lang('COOKIE_POLICY_EXPLAIN'),
+
 			'PRIVACY_POLICY_ANONYMISE'		=> isset($this->config['privacy_policy_anonymise']) ? $this->config['privacy_policy_anonymise'] : '',
 			'PRIVACY_POLICY_ANONYMISE_IP'	=> isset($this->config['privacy_policy_anonymise_ip']) ? $this->config['privacy_policy_anonymise_ip'] : '',
 			'PRIVACY_POLICY_ENABLED'		=> isset($this->config['privacy_policy_enable']) ? $this->config['privacy_policy_enable'] : '',
@@ -162,6 +165,8 @@ class acp_manage_controller implements acp_manage_interface
 			'PRIVACY_POLICY_RESET'			=> isset($this->config['privacy_policy_reset']) ? $this->config['privacy_policy_reset'] : '',
 
 			'U_ACTION' 						=> $this->u_action,
+
+			'VERSION_NUMBER'				=> ext::PRIVACY_POLICY_VERSION,
 		));
 	}
 
@@ -189,6 +194,7 @@ class acp_manage_controller implements acp_manage_interface
 		$this->config->set('cookie_policy_enable', $this->request->variable('cookie_policy_enable', 0));
 		$this->config->set('cookie_require_access', $this->request->variable('cookie_require_access', 0));
 		$this->config->set('cookie_show_policy', $this->request->variable('cookie_show_policy', 0));
+		
 		$this->config->set('privacy_policy_anonymise', $this->request->variable('privacy_policy_anonymise', 0));
 		$this->config->set('privacy_policy_anonymise_ip', $this->request->variable('privacy_policy_anonymise_ip', ''));
 		$this->config->set('privacy_policy_enable', $this->request->variable('privacy_policy_enable', 0));

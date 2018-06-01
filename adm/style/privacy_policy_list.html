@@ -3,15 +3,7 @@
 
 <a name="maincontent"></a>
 
-<div class="head-panel">
-	<div class="head-title">{{ lang('PRIVACY_LIST') }}</div>
-	<div class="head-description">{{ lang('PRIVACY_LIST_EXPLAIN') }}</div>
-		<div class="version-wrapper" style="float: {{ S_CONTENT_FLOW_END }};">
-		<div class="version-text">{{ lang('VERSION') }}</div>
-		<div class="version-data">{{ PRIVACY_POLICY_VERSION }}</div>
-	</div>
-	<br />
-</div>
+{% include 'head_panel.html' %}
 
 <form id="list" method="post" action="{{ U_ACTION }}">
 
@@ -28,7 +20,7 @@
 		<div class="select-buttons">
 			<strong>{{ lang('SORT_BY') }}&nbsp;{{ lang('COLON') }}</strong>&nbsp;{{ S_SORT_KEY }}&nbsp;&nbsp;{{ S_SORT_DIR }}
 			&nbsp;&bull;&nbsp;
-			<strong>{{ lang('FILTER_BY') }}&nbsp;{{ lang('COLON') }}</strong>&nbsp;{{ S_FILTER_BY }}&nbsp;{{ S_FILTER_CHAR }}
+			<strong>{{ lang('FILTER_BY') }}&nbsp;{{ lang('COLON') }}</strong>&nbsp;{{ S_FILTER_CHAR }}
 			<br /><br />
 			<input class="adm-button" type="submit" value="{{ lang('GO') }}" name="sort" />
 			&nbsp;&nbsp;&nbsp;

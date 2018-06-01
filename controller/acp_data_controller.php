@@ -189,7 +189,7 @@ class acp_data_controller implements acp_data_interface
 
 		$this->db->sql_freeresult($result);
 
-		$action = "{$this->u_action}&amp;sk=$sort_key&amp;sd=$sd";
+		$action = "{$this->u_action}&amp;sk=$sort_key&amp;sd=$sd&amp;fc=$fc";
 		$start 	= $this->pagination->validate_start($start, $this->config['privacy_policy_list_lines'], $user_count);
 		$this->pagination->generate_template_pagination($action . "&ampfc=$fc", 'pagination', 'start', $user_count, $this->config['privacy_policy_list_lines'], $start);
 
@@ -210,12 +210,18 @@ class acp_data_controller implements acp_data_interface
 		}
 
 		$this->template->assign_vars(array(
-			'PRIVACY_POLICY_VERSION'	=> ext::PRIVACY_POLICY_VERSION,
-			'S_FILTER_CHAR'				=> $this->character_select($fc),
-			'S_SORT_DIR'				=> $s_sort_dir,
-			'S_SORT_KEY'				=> $s_sort_key,
-			'TOTAL_USERS'				=> $user_count,
-			'U_ACTION'					=> $action . "&ampfc=$fc",
+			'HEAD_TITLE'		=> $this->language->lang('PRIVACY_LIST'),
+			'HEAD_DESCRIPTION'	=> $this->language->lang('PRIVACY_LIST_EXPLAIN'),
+
+			'S_FILTER_CHAR'		=> $this->character_select($fc),
+			'S_SORT_DIR'		=> $s_sort_dir,
+			'S_SORT_KEY'		=> $s_sort_key,
+
+			'TOTAL_USERS'		=> $user_count,
+
+			'U_ACTION'			=> $action . "&ampfc=$fc",
+
+			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
 		));
 	}
 
@@ -364,10 +370,15 @@ class acp_data_controller implements acp_data_interface
 		}
 
 		$this->template->assign_vars(array(
-			'PRIVACY_POLICY_VERSION'	=> ext::PRIVACY_POLICY_VERSION,
-			'S_CONFIRM'					=> $confirm,
-			'U_ACTION'					=> $this->u_action,
-			'U_FIND_USERNAME'			=> append_sid("{$this->root_path}memberlist.$this->php_ext", 'mode=searchuser&amp;form=privacy_policy_data&amp;field=privacy_username&amp;select_single=true'),
+			'HEAD_TITLE'		=> $this->language->lang('ACP_PRIVACY_TITLE'),
+			'HEAD_DESCRIPTION'	=> $this->language->lang('ACP_PRIVACY_POLICY_EXPLAIN'),
+
+			'S_CONFIRM'			=> $confirm,
+
+			'U_ACTION'			=> $this->u_action,
+			'U_FIND_USERNAME'	=> append_sid("{$this->root_path}memberlist.$this->php_ext", 'mode=searchuser&amp;form=privacy_policy_data&amp;field=privacy_username&amp;select_single=true'),
+
+			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
 		));
 	}
 
