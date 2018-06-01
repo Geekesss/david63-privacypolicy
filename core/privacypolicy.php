@@ -315,19 +315,26 @@ class privacypolicy
 
 			$result = $this->db->sql_query($sql);
 
-			$user_ips = '';
+			$user_ips = array();
 			while ($row = $this->db->sql_fetchrow($result))
 			{
 				if($row['poster_ip'])
 				{
-					$user_ips .= $row['poster_ip'] . '<br>';
+					$user_ips[] = $row['poster_ip'];
 				}
 			}
 		}
-
 		$this->db->sql_freeresult($result);
 
-		return $user_ips;
+		if (!sizeof($user_ips))
+		{
+			return $this->language->lang('NO_IPS_FOUND');
+		}
+		else
+		{
+			natsort($user_ips);
+			return implode('<br />', $user_ips);
+		}
 	}
 
 	/**
