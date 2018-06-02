@@ -54,20 +54,20 @@ $lang = array_merge($lang, array(
 	'COOKIE_BOX_TXT_COLOUR'					=> 'Cookie box text colour',
 	'COOKIE_BOX_TXT_COLOUR_EXPLAIN'			=> 'Select the text colour for the Cookie acceptance box.<br />The default colour is <strong>“#DBDB00”</strong>',
 
-	'COOKIE_CUSTOM_PAGE'					=> 'Use custom cookie page colours',
+	'COOKIE_CUSTOM_PAGE'					=> 'Use custom policy page colours',
 	'COOKIE_CUSTOM_PAGE_CORNERS'			=> 'Use rounded corners',
-	'COOKIE_CUSTOM_PAGE_CORNERS_EXPLAIN'	=> 'Use rounded corners on the cookie policy page.<br />Setting this to <strong>No</strong> will mean that the page has square corners.',
-	'COOKIE_CUSTOM_PAGE_EXPLAIN'			=> 'Use the custom colours for the cookie policy page.<br />Setting this to <strong>No</strong> will use the default colours from your style.',
+	'COOKIE_CUSTOM_PAGE_CORNERS_EXPLAIN'	=> 'Use rounded corners on the policy page.<br />Setting this to <strong>No</strong> will mean that the page has square corners.',
+	'COOKIE_CUSTOM_PAGE_EXPLAIN'			=> 'Use the custom colours for the policy page.<br />Setting this to <strong>No</strong> will use the default colours from your style.',
 	'COOKIE_CUSTOM_PAGE_RADIUS'				=> 'Custom page radius',
-	'COOKIE_CUSTOM_PAGE_RADIUS_EXPLAIN'		=> 'Sets the number of pixels for rounding the custom Cookie page corners. Setting this to 0 means that the page will have square corners.<br /><em>The default for prosilver is 7px.</em>',
+	'COOKIE_CUSTOM_PAGE_RADIUS_EXPLAIN'		=> 'Sets the number of pixels for rounding the custom policy page corners. Setting this to 0 means that the page will have square corners.<br /><em>The default for prosilver is 7px.</em>',
 
 	'COOKIE_EXPIRE'							=> 'Cookie expires',
 	'COOKIE_EXPIRE_EXPLAIN'					=> 'Setting this to yes will require the user to re accept the Cookie Policy annually.',
 
-	'COOKIE_PAGE_BG_COLOUR'					=> 'Custom cookie page background colour',
-	'COOKIE_PAGE_BG_COLOUR_EXPLAIN'			=> 'Select the background colour for the Cookie policy page.',
-	'COOKIE_PAGE_TXT_COLOUR'				=> 'Custom cookie page text colour',
-	'COOKIE_PAGE_TXT_COLOUR_EXPLAIN'		=> 'Select the text colour for the Cookie policy page.',
+	'COOKIE_PAGE_BG_COLOUR'					=> 'Custom policy page background colour',
+	'COOKIE_PAGE_BG_COLOUR_EXPLAIN'			=> 'Select the background colour for the policy page.',
+	'COOKIE_PAGE_TXT_COLOUR'				=> 'Custom policy page text colour',
+	'COOKIE_PAGE_TXT_COLOUR_EXPLAIN'		=> 'Select the text colour for the policy page.',
 
 	'COOKIE_POLICY_ENABLE'					=> 'Enable the Cookie policy',
 	'COOKIE_POLICY_ENABLE_EXPLAIN'			=> 'Enable/disable all user’s requirement to accept the use of cookies, under EU Cookie directive (2012), on this board.',
@@ -84,8 +84,8 @@ $lang = array_merge($lang, array(
 
 	'CUSTOM_BOX_COLOURS'					=> 'Cookie box colours',
 	'CUSTOM_BOX_COLOURS_EXPLAIN'			=> '<strong>Here you can change the colours to suit your style for the Cookie acceptance box.</strong>',
-	'CUSTOM_PAGE_COLOURS'					=> 'Custom cookie page options',
-	'CUSTOM_PAGE_COLOURS_EXPLAIN'			=> '<strong>Here you can change the colours and/or set rounded corners to suit your style for the Cookie policy page.</strong>',
+	'CUSTOM_PAGE_COLOURS'					=> 'Custom policy page options',
+	'CUSTOM_PAGE_COLOURS_EXPLAIN'			=> '<strong>Here you can change the colours and/or set rounded corners to suit your style for the policy page.</strong>',
 
 	'PIXELS'								=> 'px',
 	'POLICIES'								=> 'Policies',
