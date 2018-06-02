@@ -7,3 +7,10 @@
 	</div>
 	<br />
 </div>
+
+{% if S_TAPATALK %}
+	<div class="head-panel-error">
+		<div class="head-title">{{ lang('TAPATALK_INSTALLED') }}</div>
+		<div class="head-description">{{ lang('TAPATALK_INSTALLED_EXPLAIN') }}</div>
+	</div>
+{% endif %}

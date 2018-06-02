@@ -215,7 +215,7 @@ Pagination
 /* ---------
 Panels
 --------- */
-.head-panel {
+.head-panel, .head-panel-error {
 	width: auto;
 	height: auto;
 	-webkit-border-radius: 1em;
@@ -224,17 +224,25 @@ Panels
 	border-width: 0.1em;
 	border-style: solid;
 	border-color: #d7d7d7;
-	background-color: #ffffff;
 	padding: 0.5em;
 	margin-bottom: 1em;
 	box-shadow: 0.15em 0.2em 0em 0em #899599;
+	color: #115098;
+}
+
+.head-panel {
+	background-color: #ffffff;
+}
+
+.head-panel-error {
+	background-color: #990000;
+	color: #FFFFFF;
 }
 
 .head-title {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	font-size: 1.70em;
 	font-weight: normal;
-	color: #115098;
 	margin-bottom: 0.25em;
 }
 

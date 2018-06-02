@@ -30,7 +30,7 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
             - '@david63.privacypolicy.core.privacypolicy_lang'
-            - '@david63.privacypolicy.core.privacypolicy'			
+            - '@david63.privacypolicy.core.privacypolicy'
 
     david63.privacypolicy.acp.manage.controller:
         class: david63\privacypolicy\controller\acp_manage_controller
@@ -57,6 +57,7 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
             - '@david63.privacypolicy.core.privacypolicy_lang'
+            - '@david63.privacypolicy.core.privacypolicy'			
             - '%david63.privacypolicy.tables.privacy_lang%'
 
     david63.privacypolicy.acp.data.controller:

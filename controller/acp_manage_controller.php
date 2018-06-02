@@ -91,6 +91,9 @@ class acp_manage_controller implements acp_manage_interface
 		// Add the language file
 		$this->language->add_lang('acp_privacypolicy', 'david63/privacypolicy');
 
+		// Check if Tapatalk is installed
+		$this->privacypolicy->tapatalk();
+
 		// Create a form key for preventing CSRF attacks
 		$form_key = 'privacypolicy_manage';
 		add_form_key($form_key);
@@ -194,7 +197,7 @@ class acp_manage_controller implements acp_manage_interface
 		$this->config->set('cookie_policy_enable', $this->request->variable('cookie_policy_enable', 0));
 		$this->config->set('cookie_require_access', $this->request->variable('cookie_require_access', 0));
 		$this->config->set('cookie_show_policy', $this->request->variable('cookie_show_policy', 0));
-		
+
 		$this->config->set('privacy_policy_anonymise', $this->request->variable('privacy_policy_anonymise', 0));
 		$this->config->set('privacy_policy_anonymise_ip', $this->request->variable('privacy_policy_anonymise_ip', ''));
 		$this->config->set('privacy_policy_enable', $this->request->variable('privacy_policy_enable', 0));

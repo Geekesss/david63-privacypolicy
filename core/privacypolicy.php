@@ -498,10 +498,30 @@ class privacypolicy
 			else
 			{
 				$this->autogroup_manager->check_condition('david63.privacypolicy.autogroups.type.ppaccept', array(
-					'action'	=> 'sync',
+					'action' => 'sync',
 				));
 			}
 		}
+	}
+
+	/**
+	* Check for Tapatalk enabled
+	*
+	* @return null
+	* @access public
+	*/
+	public function tapatalk()
+	{
+		$sql = 'SELECT *
+			FROM ' . EXT_TABLE . "
+			WHERE ext_name = 'tapatalk/tapatalk'";
+
+		$result	= $this->db->sql_query($sql);
+		$row 	= $this->db->sql_fetchrow($result);
+
+		$this->db->sql_freeresult($result);
+
+		$this->template->assign_var('S_TAPATALK', ($row && $row['ext_active'] == 1) ? true : false);
 	}
 
 	/**

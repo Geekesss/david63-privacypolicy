@@ -107,6 +107,9 @@ class acp_data_controller implements acp_data_interface
 		// Add the language file
 		$this->language->add_lang('acp_list_privacypolicy', 'david63/privacypolicy');
 
+		// Check if Tapatalk is installed
+		$this->privacypolicy->tapatalk();
+
 		// Start initial var setup
 		$action			= $this->request->variable('action', '');
 		$clear_filters	= $this->request->variable('clear_filters', '');
@@ -274,6 +277,9 @@ class acp_data_controller implements acp_data_interface
 		// Add the language files
 		$this->language->add_lang('acp_data_privacypolicy', 'david63/privacypolicy');
 		$this->language->add_lang('common_privacypolicy', 'david63/privacypolicy');
+
+		// Check if Tapatalk is installed
+		$this->privacypolicy->tapatalk();
 
 		// Create a form key for preventing CSRF attacks
 		$form_key = 'privacy_policy_data';

@@ -19,6 +19,7 @@ use \phpbb\language\language;
 use \phpbb\log\log;
 use \phpbb\db\driver\driver_interface;
 use \david63\privacypolicy\core\privacypolicy_lang;
+use \david63\privacypolicy\core\privacypolicy;
 use \david63\privacypolicy\ext;
 
 /**
@@ -56,6 +57,9 @@ class acp_edit_controller implements acp_edit_interface
 	/** @var \david63\privacypolicy\core\privacypolicy_lang */
 	protected $privacypolicy_lang;
 
+	/** @var \david63\privacypolicy\core\privacypolicy */
+	protected $privacypolicy;
+
 	/**
 	* The database table the privacy lang data is stored in
 	*
@@ -79,12 +83,13 @@ class acp_edit_controller implements acp_edit_interface
 	 * @param string										 	$phpbb_root_path	phpBB root path
 	 * @param string										 	$php_ext            phpBB extension
 	 * @param \david63\privacypolicy\core\privacypolicy_lang 	privacypolicy_lang  Methods for the extension
+	 * @param \david63\privacypolicy\core\privacypolicy			privacypolicy		Methods for the extension
 	 * @param string											$privacy_lang_table	Name of the table used to store log searches data
 	 *
 	 * @return \david63\privacypolicy\controller\acp_edit_controller
 	 * @access public
 	 */
-	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang, $privacy_lang_table)
+	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, $privacy_lang_table)
 	{
 		$this->config             	= $config;
 		$this->request            	= $request;
@@ -96,6 +101,7 @@ class acp_edit_controller implements acp_edit_interface
 		$this->root_path			= $root_path;
 		$this->php_ext				= $php_ext;
 		$this->privacypolicy_lang 	= $privacypolicy_lang;
+		$this->privacypolicy		= $privacypolicy;
 		$this->privacy_lang_table	= $privacy_lang_table;
 	}
 
@@ -115,6 +121,9 @@ class acp_edit_controller implements acp_edit_interface
 		// Add the language files
 		$this->language->add_lang('acp_privacy_edit', 'david63/privacypolicy');
 		$this->language->add_lang('posting');
+
+		// Check if Tapatalk is installed
+		$this->privacypolicy->tapatalk();
 
 		// Create a form key for preventing CSRF attacks
 		$form_key = 'privacypolicy_edit';
