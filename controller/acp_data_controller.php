@@ -49,7 +49,7 @@ class acp_data_controller implements acp_data_interface
 	protected $root_path;
 
 	/** @var string PHP extension */
-	protected $phpEx;
+	protected $php_ext;
 
 	/** @var \david63\privacypolicy\core\privacypolicy */
 	protected $privacypolicy;
@@ -285,7 +285,7 @@ class acp_data_controller implements acp_data_interface
 		$form_key = 'privacy_policy_data';
 		add_form_key($form_key);
 
-		$privacy_username	= $this->request->variable('privacy_username', '');
+		$privacy_username	= $this->request->variable('privacy_username', '', true);
 		$user_id 			= $this->request->variable('user_id', 0);
 		$username 			= $this->request->variable('username', '');
 		$confirm 			= true;
@@ -312,18 +312,17 @@ class acp_data_controller implements acp_data_interface
 					FROM ' . USERS_TABLE . "
 						WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($privacy_username)) . "'";
 
-				$result = $this->db->sql_query($sql);
-				$row 	= $this->db->sql_fetchrow($result);
+				$result 	= $this->db->sql_query($sql);
+				$user_id	= (int) $this->db->sql_fetchfield('user_id');
 
 				$this->db->sql_freeresult($result);
 
 				// Is the username valid?
-				if (!$row)
+				if (!$user_id)
 				{
 					trigger_error($this->language->lang('INVALID_USERNAME') . adm_back_link($this->u_action), E_USER_WARNING);
 				}
 
-				$user_id = $row['user_id'];
 				$confirm = false;
 
 				$s_hidden_fields = array(
