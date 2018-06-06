@@ -118,6 +118,8 @@ class acp_data_controller implements acp_data_interface
 		$sd = $sort_dir	= $this->request->variable('sd', 'a');
 		$start			= $this->request->variable('start', 0);
 
+		$back = false;
+
 		if ($clear_filters)
 		{
 			$fc				= '';
@@ -212,10 +214,20 @@ class acp_data_controller implements acp_data_interface
 			));
 		}
 
+		// Template vars for header panel
 		$this->template->assign_vars(array(
+			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
+			'ERROR_DESCRIPTION'	=> $this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
+
 			'HEAD_TITLE'		=> $this->language->lang('PRIVACY_LIST'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('PRIVACY_LIST_EXPLAIN'),
 
+			'S_BACK'			=> $back,
+
+			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
+		));
+
+		$this->template->assign_vars(array(
 			'S_FILTER_CHAR'		=> $this->character_select($fc),
 			'S_SORT_DIR'		=> $s_sort_dir,
 			'S_SORT_KEY'		=> $s_sort_key,
@@ -223,8 +235,6 @@ class acp_data_controller implements acp_data_interface
 			'TOTAL_USERS'		=> $user_count,
 
 			'U_ACTION'			=> $action . "&ampfc=$fc",
-
-			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
 		));
 	}
 
@@ -289,6 +299,7 @@ class acp_data_controller implements acp_data_interface
 		$user_id 			= $this->request->variable('user_id', 0);
 		$username 			= $this->request->variable('username', '');
 		$confirm 			= true;
+		$back				= false;
 
 		// Submit
 		if ($this->request->is_set_post('details') || $this->request->is_set_post('accept') || $this->request->is_set_post('unaccept'))
@@ -323,7 +334,8 @@ class acp_data_controller implements acp_data_interface
 					trigger_error($this->language->lang('INVALID_USERNAME') . adm_back_link($this->u_action), E_USER_WARNING);
 				}
 
-				$confirm = false;
+				$confirm 	= false;
+				$back		= true;
 
 				$s_hidden_fields = array(
 					'user_id'	=> $user_id,
@@ -374,16 +386,24 @@ class acp_data_controller implements acp_data_interface
 			}
 		}
 
+		// Template vars for header panel
 		$this->template->assign_vars(array(
+			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
+			'ERROR_DESCRIPTION'	=> $this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
+
 			'HEAD_TITLE'		=> $this->language->lang('ACP_PRIVACY_TITLE'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('ACP_PRIVACY_POLICY_EXPLAIN'),
 
+			'S_BACK'			=> $back,
+
+			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
+		));
+
+		$this->template->assign_vars(array(
 			'S_CONFIRM'			=> $confirm,
 
 			'U_ACTION'			=> $this->u_action,
 			'U_FIND_USERNAME'	=> append_sid("{$this->root_path}memberlist.$this->php_ext", 'mode=searchuser&amp;form=privacy_policy_data&amp;field=privacy_username&amp;select_single=true'),
-
-			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
 		));
 	}
 

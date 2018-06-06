@@ -132,6 +132,7 @@ class acp_edit_controller implements acp_edit_interface
 		$lang_name 			= $lang_id = $lang_desc = '';
 		$preview   			= false;
 		$get_text 			= true;
+		$back				= false;
 		$s_hidden_fields 	= array();
 
 		// Start initial var setup
@@ -198,6 +199,7 @@ class acp_edit_controller implements acp_edit_interface
 				{
 					$privacy_desc 	= $this->privacypolicy_lang->get_description($lang_name, 'en');
 					$get_text 		= false;
+					$back			= true;
 					$add_new 		= true;
 				}
 
@@ -278,12 +280,14 @@ class acp_edit_controller implements acp_edit_interface
 				$preview        = true;
 				$lang_name      = $lang_name;
 				$get_text 		= true;
+				$back			= false;
 				$policy_preview = generate_text_for_display(str_replace("%sitename%", $this->config['sitename'], $privacy_edit_text), $privacy_uid, $privacy_bitfield, $privacy_flags);
 				$editable_text 	= generate_text_for_edit($privacy_edit_text, $privacy_uid, $privacy_flags);
 				$editable_text 	= $editable_text['text'];
 			}
 
-			$get_text = false;
+			$get_text	= false;
+			$back		= true;
 
 			$this->template->assign_vars(array(
 				'POLICY_DESCRIPTION_EXPLAIN'	=> $this->language->lang('POLICY_DESCRIPTION_EXPLAIN', $local_lang_name),
@@ -306,10 +310,20 @@ class acp_edit_controller implements acp_edit_interface
 			display_custom_bbcodes();
 		}
 
+		// Template vars for header panel
 		$this->template->assign_vars(array(
-			'HEAD_TITLE'			=> $this->language->lang('POLICY_EDIT'),
-			'HEAD_DESCRIPTION'		=> $this->language->lang('POLICY_EDIT_EXPLAIN'),
+			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
+			'ERROR_DESCRIPTION'	=> $this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
 
+			'HEAD_TITLE'		=> $this->language->lang('POLICY_EDIT'),
+			'HEAD_DESCRIPTION'	=> $this->language->lang('POLICY_EDIT_EXPLAIN'),
+
+			'S_BACK'			=> $back,
+
+			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
+		));
+
+		$this->template->assign_vars(array(
 			'POLICY_DESCRIPTION'	=> $privacy_desc,
 			'POLICY_TEXT' 			=> $editable_text,
 
@@ -318,8 +332,6 @@ class acp_edit_controller implements acp_edit_interface
 			'S_SHOW_BUTTONS'		=> true,
 
 			'U_ACTION' 				=> $this->u_action,
-
-			'VERSION_NUMBER'		=> ext::PRIVACY_POLICY_VERSION,
 		));
 	}
 

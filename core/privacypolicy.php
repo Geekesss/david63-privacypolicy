@@ -521,7 +521,8 @@ class privacypolicy
 
 		$this->db->sql_freeresult($result);
 
-		$this->template->assign_var('S_TAPATALK', ($row && $row['ext_active'] == 1) ? true : false);
+		//$this->template->assign_var('S_ERROR', true);
+		$this->template->assign_var('S_ERROR', ($row && $row['ext_active'] == 1) ? true : false);
 	}
 
 	/**

@@ -98,6 +98,8 @@ class acp_manage_controller implements acp_manage_interface
 		$form_key = 'privacypolicy_manage';
 		add_form_key($form_key);
 
+		$back = false;
+
 		// Is the form being submitted?
 		if ($this->request->is_set_post('submit'))
 		{
@@ -137,6 +139,19 @@ class acp_manage_controller implements acp_manage_interface
 			trigger_error($this->language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
+		// Template vars for header panel
+		$this->template->assign_vars(array(
+			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
+			'ERROR_DESCRIPTION'	=> $this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
+
+			'HEAD_TITLE'		=> $this->language->lang('COOKIE_POLICY'),
+			'HEAD_DESCRIPTION'	=> $this->language->lang('COOKIE_POLICY_EXPLAIN'),
+
+			'S_BACK'			=> $back,
+
+			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
+		));
+
 		// Set output vars for display in the template
 		$this->template->assign_vars(array(
 			'COOKIE_BLOCK_LINKS'			=> isset($this->config['cookie_block_links']) ? $this->config['cookie_block_links'] : '',
@@ -156,9 +171,6 @@ class acp_manage_controller implements acp_manage_interface
 			'COOKIE_REQUIRE'				=> isset($this->config['cookie_require_access']) ? $this->config['cookie_require_access'] : '',
 			'COOKIE_SHOW_POLICY'			=> isset($this->config['cookie_show_policy']) ? $this->config['cookie_show_policy'] : '',
 
-			'HEAD_TITLE'					=> $this->language->lang('COOKIE_POLICY'),
-			'HEAD_DESCRIPTION'				=> $this->language->lang('COOKIE_POLICY_EXPLAIN'),
-
 			'PRIVACY_POLICY_ANONYMISE'		=> isset($this->config['privacy_policy_anonymise']) ? $this->config['privacy_policy_anonymise'] : '',
 			'PRIVACY_POLICY_ANONYMISE_IP'	=> isset($this->config['privacy_policy_anonymise_ip']) ? $this->config['privacy_policy_anonymise_ip'] : '',
 			'PRIVACY_POLICY_ENABLED'		=> isset($this->config['privacy_policy_enable']) ? $this->config['privacy_policy_enable'] : '',
@@ -168,8 +180,6 @@ class acp_manage_controller implements acp_manage_interface
 			'PRIVACY_POLICY_RESET'			=> isset($this->config['privacy_policy_reset']) ? $this->config['privacy_policy_reset'] : '',
 
 			'U_ACTION' 						=> $this->u_action,
-
-			'VERSION_NUMBER'				=> ext::PRIVACY_POLICY_VERSION,
 		));
 	}
 

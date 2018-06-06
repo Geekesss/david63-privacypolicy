@@ -9,13 +9,6 @@
 	var imageTag 	= false;
 </script>
 
-{% if not S_GET_TEXT %}
-	<a href="{{ U_BACK }}" style="float: {{ S_CONTENT_FLOW_END }};">&laquo; {{ lang('BACK') }}</a>
-	<br />
-{% endif %}
-
-<a name="maincontent"></a>
-
 {% include 'head_panel.html' %}
 
 {% if S_GET_TEXT %}

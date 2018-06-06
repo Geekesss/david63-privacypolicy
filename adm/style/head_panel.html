@@ -1,3 +1,10 @@
+<a name="maincontent"></a>
+
+{% if S_BACK %}
+	<a href="{{ U_BACK }}" style="float: {{ S_CONTENT_FLOW_END }};">&laquo; {{ lang('BACK') }}</a>
+	<br />
+{% endif %}
+
 <div class="head-panel">
 	<div class="head-title">{{ HEAD_TITLE }}</div>
 	<div class="head-description">{{ HEAD_DESCRIPTION }}</div>
@@ -8,9 +15,9 @@
 	<br />
 </div>
 
-{% if S_TAPATALK %}
+{% if S_ERROR %}
 	<div class="head-panel-error">
-		<div class="head-title">{{ lang('TAPATALK_INSTALLED') }}</div>
-		<div class="head-description">{{ lang('TAPATALK_INSTALLED_EXPLAIN') }}</div>
+		<div class="head-title">{{ ERROR_TITLE }}</div>
+		<div class="head-description">{{ ERROR_DESCRIPTION }}</div>
 	</div>
 {% endif %}

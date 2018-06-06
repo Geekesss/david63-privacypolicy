@@ -1,11 +1,6 @@
 {% include 'overall_header.html' %}
 {% INCLUDECSS '@david63_privacypolicy/admin_forms.css' %}
 
-{% if not S_CONFIRM %}
-	<a href="{{ U_BACK }}" style="float: {{ S_CONTENT_FLOW_END }};">&laquo; {{ lang('BACK') }}</a>
-	<br />
-{% endif %}
-
 {% include 'head_panel.html' %}
 
 <form id="privacy_policy_data" method="post" action="{U_ACTION}">
