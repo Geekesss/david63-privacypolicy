@@ -288,8 +288,16 @@ class acp_data_controller implements acp_data_interface
 		$this->language->add_lang('acp_data_privacypolicy', 'david63/privacypolicy');
 		$this->language->add_lang('common_privacypolicy', 'david63/privacypolicy');
 
+		$error = false;
+		$error_title = $error_description = '';
+
 		// Check if Tapatalk is installed
-		$this->privacypolicy->tapatalk();
+		if ($this->privacypolicy->tapatalk(false))
+		{
+			$error 				= true;
+			$error_title 		= $this->language->lang('TAPATALK_INSTALLED');
+			$error_description	= $this->language->lang('TAPATALK_INSTALLED_EXPLAIN');
+		}
 
 		// Create a form key for preventing CSRF attacks
 		$form_key = 'privacy_policy_data';
@@ -315,36 +323,45 @@ class acp_data_controller implements acp_data_interface
 				// Has a username been entered?
 				if (!$privacy_username)
 				{
-					trigger_error($this->language->lang('NO_USERNAME') . adm_back_link($this->u_action), E_USER_WARNING);
+					$error 				= true;
+					$error_title 		= $this->language->lang('WARNING');
+					$error_description	= $this->language->lang('NO_USERNAME');
 				}
-
-				// Get the userid from the username
-				$sql = 'SELECT user_id
-					FROM ' . USERS_TABLE . "
-						WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($privacy_username)) . "'";
-
-				$result 	= $this->db->sql_query($sql);
-				$user_id	= (int) $this->db->sql_fetchfield('user_id');
-
-				$this->db->sql_freeresult($result);
-
-				// Is the username valid?
-				if (!$user_id)
+				else
 				{
-					trigger_error($this->language->lang('INVALID_USERNAME') . adm_back_link($this->u_action), E_USER_WARNING);
+					// Get the userid from the username
+					$sql = 'SELECT user_id
+						FROM ' . USERS_TABLE . "
+							WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($privacy_username)) . "'";
+
+					$result 	= $this->db->sql_query($sql);
+					$user_id	= (int) $this->db->sql_fetchfield('user_id');
+
+					$this->db->sql_freeresult($result);
+
+					// Is the username valid?
+					if (!$user_id)
+					{
+						//trigger_error($this->language->lang('INVALID_USERNAME') . adm_back_link($this->u_action), E_USER_WARNING);
+						$error 				= true;
+						$error_title 		= $this->language->lang('WARNING');
+						$error_description	= $this->language->lang('INVALID_USERNAME');
+					}
+					else
+					{
+						$confirm 	= false;
+						$back		= true;
+
+						$s_hidden_fields = array(
+							'user_id'	=> $user_id,
+							'username'	=> $privacy_username,
+						);
+
+						$this->template->assign_var('S_HIDDEN_FIELDS', build_hidden_fields($s_hidden_fields));
+
+			   			$this->privacypolicy->display_privacy_data($user_id);
+					}
 				}
-
-				$confirm 	= false;
-				$back		= true;
-
-				$s_hidden_fields = array(
-					'user_id'	=> $user_id,
-					'username'	=> $privacy_username,
-				);
-
-				$this->template->assign_var('S_HIDDEN_FIELDS', build_hidden_fields($s_hidden_fields));
-
-				$this->privacypolicy->display_privacy_data($user_id);
 			}
 
 			if ($this->request->is_set_post('accept'))
@@ -388,13 +405,14 @@ class acp_data_controller implements acp_data_interface
 
 		// Template vars for header panel
 		$this->template->assign_vars(array(
-			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
-			'ERROR_DESCRIPTION'	=> $this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
+			'ERROR_TITLE'		=> $error_title, //$this->language->lang('TAPATALK_INSTALLED'),
+			'ERROR_DESCRIPTION'	=> $error_description, //$this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
 
 			'HEAD_TITLE'		=> $this->language->lang('ACP_PRIVACY_TITLE'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('ACP_PRIVACY_POLICY_EXPLAIN'),
 
 			'S_BACK'			=> $back,
+			'S_ERROR'			=> $error,
 
 			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
 		));

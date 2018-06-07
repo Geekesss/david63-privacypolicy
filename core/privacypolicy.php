@@ -510,7 +510,7 @@ class privacypolicy
 	* @return null
 	* @access public
 	*/
-	public function tapatalk()
+	public function tapatalk($error = true)
 	{
 		$sql = 'SELECT *
 			FROM ' . EXT_TABLE . "
@@ -521,8 +521,16 @@ class privacypolicy
 
 		$this->db->sql_freeresult($result);
 
-		//$this->template->assign_var('S_ERROR', true);
-		$this->template->assign_var('S_ERROR', ($row && $row['ext_active'] == 1) ? true : false);
+		$tapatalk_installed = ($row && $row['ext_active'] == 1) ? true : false;
+
+		if ($error)
+		{
+			$this->template->assign_var('S_ERROR', $tapatalk_installed);
+		}
+		else
+		{
+			return $tapatalk_installed;
+		}
 	}
 
 	/**
